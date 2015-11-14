@@ -3,7 +3,7 @@
 > Finding the right articles for a systematic review or meta-analysis is the most challenging part. Janssens et. al has published a novel algorithm to expedite the process of finding eligible studies for meta-analysis based on the degree of co-citation. I have written a small shell script to implement the algorithm for PubMed using Entrez Direct. 
 
 ## How to install:
-- Get hold of a Linux box. If you don't have one, wait for my next post!
+- Get hold of a Linux box. 
 - Install Entrez Direct from NCBI by cutting and pasting the code below.
 ```sh
 cd ~
@@ -18,7 +18,7 @@ cd ~
 ```
 - In the terminal window
 ```sh
-- sudo apt-get install xml-twig-tools 
+sudo apt-get install xml-twig-tools 
 ```
 - Download this script to a writable folder.
 - Find the PMID of your key articles.
