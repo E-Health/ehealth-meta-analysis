@@ -127,3 +127,5 @@ if (( cocite_index > threshold && cocite > 1 )); then
     esearch -db pubmed -query $pmid </dev/null | efetch -mode txt >> details.txt
 fi
 done < results.txt
+echo "Thanks for using co-citation checker."
+echo "Results if any are in results.txt and details.txt."
