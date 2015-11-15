@@ -52,8 +52,8 @@ done
     # final.txt contains the articles citing the given articles in the command line.
     sort  -u static.txt > final.txt
     #save number of articles for loop
-    article_no=$(cat final.txt | wc -l)	
-    #save for percentage calculation
+    article_no=$(cat final.txt | wc -l) 
+    #save for co-citation index calculation
     article_count=$(cat final.txt | wc -l) 
     # Delete static file
     rm static.txt
@@ -106,20 +106,24 @@ fi
     rm final.txt
 
 echo "Finding Details of top articles. This may take few minutes..........."
-rm details.txt
+echo "-----------------Co-Citation Finder By Bell Eapen--------------------" > details.txt
+echo "This information is subject to NCBI's Disclaimer and Copyright notice." >> details.txt
+echo "Please refer:https://www.ncbi.nlm.nih.gov/home/about/policies.shtml" >> details.txt
 while read -r var; do
-    # To prevent querying pubmed too fast
-    sleep 3
     # Message
     echo "Processing" $var
     IFS='   ' read -a counts <<< "$var"
-    cocite = ${counts[0]}
-    pmid = ${counts[1]}
-    cocite_index = $((cocite*100/article_count))
-if ["$cocite_index" -gt 10]
+    cocite=${counts[0]}
+    pmid=${counts[1]}
+    ((cocite_index=cocite*100/article_count))
+    #Change this threshold as required
+    threshold=30
+if (( cocite_index > threshold && cocite > 1 )); then
     # https://www.biostars.org/p/106301/
     echo "---------------------" >> details.txt
     echo "PMID: " $pmid "Co-Citations: " $cocite "Co-Citation Index: " $cocite_index >> details.txt
+    # To prevent querying pubmed too fast
+    sleep 3
     esearch -db pubmed -query $pmid </dev/null | efetch -mode txt >> details.txt
 fi
 done < results.txt
